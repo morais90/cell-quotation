@@ -16,4 +16,4 @@ RUN apt-get update \
 ADD . /code
 WORKDIR /code
 
-RUN pip3 install -r requirements.txt
+RUN make install
