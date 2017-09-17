@@ -1,0 +1,12 @@
+version: '3'
+services:
+  vcx:
+    build: .
+    image: vcx
+    expose:
+      - "8000"
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/code/
+    command: python3 manage.py runserver 0:8000
