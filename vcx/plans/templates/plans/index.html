@@ -1,0 +1,150 @@
+{% load static %}
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+		<link rel="stylesheet" href="{% static "plans/css/nouislider.min.css" %}" type="text/css">
+		<link rel="stylesheet" href="{% static "plans/css/datatables.min.css" %}" type="text/css">
+  </head>
+  <body>
+		<div class="container-fluid">
+            <div class="row card-deck">
+                <div class="card border-light col-md-4">
+                    <div class="card-body pb-4 pt-0">
+                        <h5 class="card-title text-center mb-5">Minutos</h5>
+                        <div id="slider-minute" class="bg-danger"></div>
+                    </div>
+                </div>
+                <div class="card border-light col-md-4">
+                    <div class="card-body pb-4 pt-0">
+                        <h5 class="card-title text-center mb-5">Internet</h5>
+                        <div id="slider-data" class="bg-info"></div>
+                    </div>
+                </div>
+                <div class="card border-light col-md-4">
+                    <div class="card-body pb-4 pt-0">
+                        <h5 class="card-title text-center mb-5">SMS</h5>
+                        <div id="slider-sms" class="bg-warning"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4 justify-content-end">
+                <div class="col-md-6">
+                    <span class="btn btn-sm text-muted">
+                        VEJA ABAIXO O MELHOR PLANO PARA VOCÊ!
+                    </span>
+                </div>
+                <div class="col-md-6 text-right">
+                    <button type="button" class="btn btn-light btn-sm" data-toggle="modal" data-target="#plan-modal" title="Clique para ver todos os planos">
+                        VER TODOS OS PLANOS
+                    </button>
+                    <button type="button" class="btn btn-light btn-sm" data-toggle="modal" data-target="#package-modal" title="Clique para ver todos os pacotes">
+                        VER TODOS OS PACOTES
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 px-0">
+                    <table class="table table-bordered table-striped text-center" id="bestplan"></table>
+                </div>
+            </div>
+
+            <div class="row justify-content-md-center mt-1">
+                <div class="col-md-7"><canvas id="chart-values"></canvas></div>
+            </div>
+		</div>
+
+        <div class="modal fade" id="plan-modal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">PLANOS</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <div class="modal-body">
+                        <table class="table table-bordered table-striped">
+                            <thead class="thead-inverse">
+                                <tr>
+                                    <th class="text-center">Plano</th>
+                                    <th class="text-center">Minutos</th>
+                                    <th class="text-center">Internet</th>
+                                    <th class="text-center">SMS</th>
+                                    <th class="text-center">Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+                                {% for plan in plans %}
+                                    <tr>
+                                        <td>{{ plan.name }}</td>
+                                        <td>{{ plan.minutes }}</td>
+                                        <td>{{ plan.data }}</td>
+                                        <td>{{ plan.sms }}</td>
+                                        <td>R$ {{ plan.value }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="package-modal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">PACOTES</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <div class="modal-body">
+                        <table class="table table-bordered table-striped">
+                            <thead class="thead-inverse">
+                                <tr>
+                                    <th class="text-center">Pacote</th>
+                                    <th class="text-center">Quantidade</th>
+                                    <th class="text-center">Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+                                {% for package in packages %}
+                                    <tr>
+                                        <td>
+                                            {% if package.type == "data" %}
+                                                Internet
+                                            {% else %}
+                                                SMS
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if package.unlimited %}
+                                                Ilimitado
+                                            {% else %}
+                                                {{ package.amount }}
+                                            {% endif %}
+                                        </td>
+                                        <td>R$ {{ package.value }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+        <script src="{% static "plans/js/datatables.min.js" %}" type="text/javascript"></script>
+        <script src="{% static "plans/js/nouislider.min.js" %}" type="text/javascript"></script>
+        <script src="{% static "plans/js/Chart.bundle.min.js" %}" type="text/javascript"></script>
+        <script src="{% static "plans/js/wNumb.js" %}" type="text/javascript"></script>
+        <script src="{% static "plans/js/vcx.js" %}" type="text/javascript"></script>
+  </body>
+</html>
