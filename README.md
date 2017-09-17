@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/morais90/cell-quotation.svg?branch=master)](https://travis-ci.org/morais90/cell-quotation)
+
 ## Simulador de cotações | VC-X Solutions
 
 A aplicação deve calcular qual a melhor opção de plano dentre os oferecidos pela Operadora X. Desta forma, a informação de entrada será o consumo de um acesso (número) Y, através dos valores de consumo de dados (MB), ligações (minutos) e consumo de sms (qtd).
