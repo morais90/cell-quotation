@@ -11,7 +11,6 @@ A aplicação deve calcular qual a melhor opção de plano dentre os oferecidos 
 ### Initialize environment
 
 ```
-shell
 # docker-compose up
 ```
 At this time the aplication will be available in http://localhost:8000
@@ -19,14 +18,12 @@ At this time the aplication will be available in http://localhost:8000
 ### Access system shell
 
 ```
-shell
 # docker-compose exec vcx bash
 ```
 
 ### Run tests
 
 ```
-shell
 # docker-compose exec vcx make test
 ```
 
@@ -35,14 +32,12 @@ shell
 ### Installing dependencies
 
 ```
-shell
 # make install
 ```
 
 ### Initialize environment
 
 ```
-shell
 # python3 manage.py runserver
 ```
 At this time the aplication will be available in http://localhost:8000
@@ -50,6 +45,5 @@ At this time the aplication will be available in http://localhost:8000
 ### Run tests
 
 ```
-shell
 # make test
 ```
